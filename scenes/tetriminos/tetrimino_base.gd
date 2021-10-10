@@ -59,4 +59,3 @@ func _lower_block(block: Block, index: int, num_lower: int) -> void:
 		var rotation_movement: Array = _rotation_movements[i]
 		var block_position: Vector2 = rotation_movement[index]
 		block_position.y -= num_lower
-	pass
