@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Sprite",
+"class": "Block",
+"language": "GDScript",
+"path": "res://scenes/block.gd"
+}, {
+"base": "Position2D",
+"class": "Tetrimino",
+"language": "GDScript",
+"path": "res://scenes/tetriminos/tetrimino_base.gd"
+} ]
+_global_script_class_icons={
+"Block": "",
+"Tetrimino": ""
+}
+
 [application]
 
 config/name="Nes Tetris"
