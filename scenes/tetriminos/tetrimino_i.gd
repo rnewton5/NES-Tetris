@@ -1,4 +1,5 @@
 extends Tetrimino
+class_name Tetrimino_I
 
 func _ready() -> void:
 	_rotation_movements = [
