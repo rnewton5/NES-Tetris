@@ -36,6 +36,8 @@ func set_rotation_index(value: int) -> void:
 	set_block_positions()
 
 func clear_by_y_position(first_to_clear: int, last_to_clear: int) -> void:
+	if last_to_clear < first_to_clear:
+		return
 	for i in _blocks.size():
 		var block: Block = _blocks[i]
 		var block_coords: Vector2 = _get_block_coords(i)
