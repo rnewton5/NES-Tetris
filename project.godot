@@ -19,51 +19,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/tetriminos/tetrimino_base.gd"
 }, {
-"base": "Tetrimino",
-"class": "Tetrimino_I",
+"base": "Reference",
+"class": "TetriminoFactory",
 "language": "GDScript",
-"path": "res://scenes/tetriminos/tetrimino_i.gd"
-}, {
-"base": "Tetrimino",
-"class": "Tetrimino_J",
-"language": "GDScript",
-"path": "res://scenes/tetriminos/tetrimino_j.gd"
-}, {
-"base": "Tetrimino",
-"class": "Tetrimino_L",
-"language": "GDScript",
-"path": "res://scenes/tetriminos/tetrimino_l.gd"
-}, {
-"base": "Tetrimino",
-"class": "Tetrimino_O",
-"language": "GDScript",
-"path": "res://scenes/tetriminos/tetrimino_o.gd"
-}, {
-"base": "Tetrimino",
-"class": "Tetrimino_S",
-"language": "GDScript",
-"path": "res://scenes/tetriminos/tetrimino_s.gd"
-}, {
-"base": "Tetrimino",
-"class": "Tetrimino_T",
-"language": "GDScript",
-"path": "res://scenes/tetriminos/tetrimino_t.gd"
-}, {
-"base": "Tetrimino",
-"class": "Tetrimino_Z",
-"language": "GDScript",
-"path": "res://scenes/tetriminos/tetrimino_z.gd"
+"path": "res://scenes/tetrimino_factory.gd"
 } ]
 _global_script_class_icons={
 "Block": "",
 "Tetrimino": "",
-"Tetrimino_I": "",
-"Tetrimino_J": "",
-"Tetrimino_L": "",
-"Tetrimino_O": "",
-"Tetrimino_S": "",
-"Tetrimino_T": "",
-"Tetrimino_Z": ""
+"TetriminoFactory": ""
 }
 
 [application]
