@@ -1,3 +1,4 @@
+tool
 extends Sprite
 class_name Block
 
