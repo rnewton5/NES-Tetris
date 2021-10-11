@@ -5,3 +5,18 @@
 
 [node name="Tetrimino_L" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="Block1" parent="." index="0"]
+region_rect = Rect2( 8, 0, 8, 8 )
+
+[node name="Block2" parent="." index="1"]
+position = Vector2( 8, 0 )
+region_rect = Rect2( 8, 0, 8, 8 )
+
+[node name="Block3" parent="." index="2"]
+position = Vector2( 16, 0 )
+region_rect = Rect2( 8, 0, 8, 8 )
+
+[node name="Block4" parent="." index="3"]
+position = Vector2( 0, 8 )
+region_rect = Rect2( 8, 0, 8, 8 )
