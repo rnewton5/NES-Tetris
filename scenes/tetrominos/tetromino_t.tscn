@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/tetrominos/tetromino_t.gd" type="Script" id=1]
 [ext_resource path="res://scenes/tetrominos/tetromino_base.tscn" type="PackedScene" id=2]
 
-[node name="Tetrimino_T" instance=ExtResource( 2 )]
+[node name="Tetromino_T" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
 
 [node name="Block2" parent="." index="1"]
