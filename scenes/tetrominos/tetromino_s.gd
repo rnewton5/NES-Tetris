@@ -1,5 +1,5 @@
 tool
-extends Tetrimino
+extends Tetromino
 
 func _ready() -> void:
 	_sprite_column = 2

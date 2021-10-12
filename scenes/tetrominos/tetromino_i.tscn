@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/tetriminos/tetrimino_i.gd" type="Script" id=1]
-[ext_resource path="res://scenes/tetriminos/tetrimino_base.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/tetrominos/tetromino_i.gd" type="Script" id=1]
+[ext_resource path="res://scenes/tetrominos/tetromino_base.tscn" type="PackedScene" id=2]
 
 [node name="Tetrimino_I" instance=ExtResource( 2 )]
 script = ExtResource( 1 )

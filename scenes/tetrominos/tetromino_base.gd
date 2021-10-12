@@ -1,5 +1,5 @@
 extends Position2D
-class_name Tetrimino
+class_name Tetromino
 
 onready var _blocks := get_children();
 
