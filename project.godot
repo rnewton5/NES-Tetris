@@ -33,6 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Nes Tetris"
+run/main_scene="res://scenes/play_field.tscn"
 config/icon="res://icon.png"
 
 [physics]
