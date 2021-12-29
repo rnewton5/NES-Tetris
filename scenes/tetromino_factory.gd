@@ -10,6 +10,7 @@ const _packed_scenes := [
 	preload("res://scenes/tetrominos/tetromino_z.tscn"),
 ]
 
+
 static func get_random() -> Tetromino:
 	var index = rand_range(0, _packed_scenes.size())
 	var scene: PackedScene = _packed_scenes[index]

@@ -1,6 +1,7 @@
 tool
 extends Tetromino
 
+
 func _ready() -> void:
 	_sprite_column = 0
 	_rotation_movements = [
