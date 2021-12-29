@@ -35,8 +35,8 @@ func update_block_positions() -> void:
 
 func update_block_dimensions() -> void:
 	var block_dimensions := get_block_dimensions()
-	_block_width = block_dimensions.x
-	_block_height = block_dimensions.y
+	_block_width = block_dimensions.x as int
+	_block_height = block_dimensions.y as int
 
 
 func get_block_dimensions() -> Vector2:
