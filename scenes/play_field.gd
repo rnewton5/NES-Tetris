@@ -3,35 +3,34 @@ extends Node2D
 export var block_size := 8
 export var width := 10
 export var height := 20
+export var hard_drop_rate := 10
+
+onready var _hard_drop_delta := 1.0 / hard_drop_rate
 
 var _board_state := []
 var _active_tetromino: Tetromino = null
 var _active_tetromino_x := 0
 var _active_tetromino_y := 0
+var _hard_drop_delta_acc := 0.0
 
 enum { OCCUPIED, FREE }
 
 
 func _ready() -> void:
-	randomize()
-	reset_board_state()
-	drop_tetromino(_get_random_tetromino())
+	_reset_board_state()
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_left"):
-		move_x(-1)
+		_move_x(-1)
 	if Input.is_action_just_pressed("ui_right"):
-		move_x(1)
-
-
-func reset_board_state():
-	_board_state = []
-	for _i in range(height):
-		var row := []
-		_board_state.append(row)
-		for _j in range(width):
-			row.append(FREE)
+		_move_x(1)
+	if Input.is_action_pressed("ui_down"):
+		_process_hard_drop(delta)
+	if Input.is_action_just_pressed("ui_rotate_clockwise"):
+		_rotate_active_clockwise()
+	if Input.is_action_just_pressed("ui_rotate_counter_clockwise"):
+		_rotate_active_counter_clockwise()
 
 
 func drop_tetromino(tetromino: Tetromino) -> void:
@@ -42,20 +41,44 @@ func drop_tetromino(tetromino: Tetromino) -> void:
 	_reposition_active()
 
 
+func tick() -> void:
+	_move_y(1)
+
+
+func _process_hard_drop(delta: float) -> void:
+	_hard_drop_delta_acc += delta
+	if _hard_drop_delta_acc >= _hard_drop_delta:
+		_move_y(1)
+		_hard_drop_delta_acc = 0.0
+
+
+func _reset_board_state():
+	_board_state = []
+	for _i in range(height):
+		var row := []
+		_board_state.append(row)
+		for _j in range(width):
+			row.append(FREE)
+
+
 func _reposition_active() -> void:
 	_active_tetromino.position.x = _active_tetromino_x * block_size
 	_active_tetromino.position.y = _active_tetromino_y * block_size
 
 
-func move_x(delta: int) -> void:
+func _move_x(delta: int) -> void:
 	_active_tetromino_x += delta
 	_reposition_active()
 
 
-func tick() -> void:
-	_active_tetromino_y += 1
+func _move_y(delta: int) -> void:
+	_active_tetromino_y += delta
 	_reposition_active()
 
 
-func _get_random_tetromino() -> Tetromino:
-	return TetrominoFactory.get_random()
+func _rotate_active_clockwise() -> void:
+	_active_tetromino.rotate_clockwise()
+
+
+func _rotate_active_counter_clockwise() -> void:
+	_active_tetromino.rotate_counter_clockwise()

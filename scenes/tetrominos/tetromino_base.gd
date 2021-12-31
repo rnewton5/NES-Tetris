@@ -48,11 +48,11 @@ func get_all_block_coords() -> Vector2:
 	return _rotation_movements[_rotation_index]
 
 
-func rotate_right() -> void:
+func rotate_clockwise() -> void:
 	set_rotation_index(_rotation_index + 1)
 
 
-func rotate_left() -> void:
+func rotate_counter_clockwise() -> void:
 	set_rotation_index(_rotation_index - 1)
 
 

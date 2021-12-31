@@ -1,13 +1,14 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/board.gd" type="Script" id=1]
-[ext_resource path="res://images/board_a.png" type="Texture" id=2]
+[ext_resource path="res://images/board_b.png" type="Texture" id=2]
 [ext_resource path="res://scenes/play_field.gd" type="Script" id=3]
 
 [node name="Board" type="Sprite"]
 texture = ExtResource( 2 )
 centered = false
 script = ExtResource( 1 )
+board_type = "B TYPE"
 
 [node name="PlayField" type="Node2D" parent="."]
 position = Vector2( 96, 41 )
