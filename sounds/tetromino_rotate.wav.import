@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/tetromino_rotate.wav-4ee360be15b30123c7d8fab43d8cd677.sample"
+
+[deps]
+
+source_file="res://sounds/tetromino_rotate.wav"
+dest_files=[ "res://.import/tetromino_rotate.wav-4ee360be15b30123c7d8fab43d8cd677.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -44,8 +44,16 @@ func get_block_dimensions() -> Vector2:
 	return block.region_rect.size
 
 
-func get_all_block_coords() -> Vector2:
+func get_all_block_coords() -> Array:
 	return _rotation_movements[_rotation_index]
+
+
+func get_clockwise_coords() -> Array:
+	return get_rotation_coords(_rotation_index + 1)
+
+
+func get_counter_clockwise_coords() -> Array:
+	return get_rotation_coords(_rotation_index - 1)
 
 
 func rotate_clockwise() -> void:
@@ -59,6 +67,11 @@ func rotate_counter_clockwise() -> void:
 func set_rotation_index(value: int) -> void:
 	_rotation_index = value % _rotation_movements.size()
 	update_block_positions()
+
+
+func get_rotation_coords(index: int) -> Array:
+	index = index % _rotation_movements.size()
+	return _rotation_movements[index]
 
 
 func clear_by_y_position(first_to_clear: int, last_to_clear: int) -> void:
