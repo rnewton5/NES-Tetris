@@ -21,16 +21,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_left"):
-		_move_x(-1)
-	if Input.is_action_just_pressed("ui_right"):
-		_move_x(1)
-	if Input.is_action_pressed("ui_down"):
-		_process_hard_drop(delta)
-	if Input.is_action_just_pressed("ui_rotate_clockwise"):
-		_rotate_active_clockwise()
-	if Input.is_action_just_pressed("ui_rotate_counter_clockwise"):
-		_rotate_active_counter_clockwise()
+	_process_input(delta)
 
 
 func drop_tetromino(tetromino: Tetromino) -> void:
@@ -43,6 +34,19 @@ func drop_tetromino(tetromino: Tetromino) -> void:
 
 func tick() -> void:
 	_move_y(1)
+
+
+func _process_input(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_left"):
+		_move_x(-1)
+	if Input.is_action_just_pressed("ui_right"):
+		_move_x(1)
+	if Input.is_action_pressed("ui_down"):
+		_process_hard_drop(delta)
+	if Input.is_action_just_pressed("ui_rotate_clockwise"):
+		_rotate_active_clockwise()
+	if Input.is_action_just_pressed("ui_rotate_counter_clockwise"):
+		_rotate_active_counter_clockwise()
 
 
 func _process_hard_drop(delta: float) -> void:
