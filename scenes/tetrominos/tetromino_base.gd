@@ -1,14 +1,14 @@
 extends Position2D
 class_name Tetromino
 
-onready var _blocks := get_children()
-
 var _block_width := 0
 var _block_height := 0
 var _rotation_movements := []
 var _rotation_index := 0 setget set_rotation_index
 var _sprite_column := 0
 var _sprite_row := 0
+
+onready var _blocks := get_children()
 
 
 func update_blocks() -> void:

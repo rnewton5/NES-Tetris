@@ -4,7 +4,7 @@
 [ext_resource path="res://images/board_a.png" type="Texture" id=2]
 [ext_resource path="res://scenes/play_field.gd" type="Script" id=3]
 [ext_resource path="res://sounds/tetromino_move.wav" type="AudioStream" id=4]
-[ext_resource path="res://sounds/tetromino_drop.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/tetromino_place.wav" type="AudioStream" id=5]
 [ext_resource path="res://sounds/tetromino_rotate.wav" type="AudioStream" id=6]
 
 [node name="Board" type="Node2D"]
@@ -14,7 +14,7 @@ script = ExtResource( 1 )
 position = Vector2( 96, 41 )
 script = ExtResource( 3 )
 
-[node name="DropSoundEffect" type="AudioStreamPlayer" parent="PlayField"]
+[node name="PlaceSoundEffect" type="AudioStreamPlayer" parent="PlayField"]
 stream = ExtResource( 5 )
 
 [node name="MoveSoundEffect" type="AudioStreamPlayer" parent="PlayField"]
@@ -23,11 +23,12 @@ stream = ExtResource( 4 )
 [node name="RotateSoundEffect" type="AudioStreamPlayer" parent="PlayField"]
 stream = ExtResource( 6 )
 
-[node name="ForeGround" type="Sprite" parent="."]
+[node name="Foreground" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 centered = false
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]
 [connection signal="timeout" from="Timer" to="." method="tick"]
