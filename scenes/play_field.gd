@@ -76,7 +76,7 @@ func _move_x(delta: int) -> void:
 	if _active_tetromino == null:
 		return
 	var x = _active_tetromino_x + delta
-	var y = _active_tetromino_y + delta
+	var y = _active_tetromino_y
 	var block_coords := _active_tetromino.get_all_block_coords()
 	if !_active_is_colliding(x, y, block_coords):
 		$MoveSoundEffect.play()
@@ -125,9 +125,9 @@ func _active_is_colliding(x: int, y: int, block_coords) -> bool:
 		var block_pos_y = y + position.y
 		if block_pos_x < 0 || block_pos_x >= width:
 			return true
-		if block_pos_y < 0 || block_pos_y >= height:
+		if block_pos_y >= height:
 			return true
-		if _board_state[block_pos_y][block_pos_x] == OCCUPIED:
+		if block_pos_y > 0 && _board_state[block_pos_y][block_pos_x] == OCCUPIED:
 			return true
 	return false
 
