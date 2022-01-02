@@ -59,10 +59,14 @@ func _process_hard_drop(delta: float) -> void:
 func _reset_board_state():
 	_board_state = []
 	for _i in range(height):
-		var row := []
-		_board_state.append(row)
-		for _j in range(width):
-			row.append(null)
+		_prepend_board_row()
+
+
+func _prepend_board_row():
+	var row := []
+	_board_state.push_front(row)
+	for _j in range(width):
+		row.append(null)
 
 
 func _reposition_active() -> void:
@@ -139,6 +143,7 @@ func _active_is_colliding(x: int, y: int, block_coords) -> bool:
 func _place_active() -> void:
 	var block_coords := _active_tetromino.get_all_block_coords()
 	var blocks := _active_tetromino.get_all_blocks()
+	var rows_to_check := {}
 	for i in block_coords.size():
 		var block_coord: Vector2 = block_coords[i]
 		var block: Block = blocks[i]
@@ -148,7 +153,28 @@ func _place_active() -> void:
 		_active_tetromino.remove_child(block)
 		block.position = _translate_coords_to_position(x, y)
 		add_child(block)
-
+		if !rows_to_check.has(y):
+			rows_to_check[y] = true
 	_active_tetromino.free()
 	$PlaceSoundEffect.play()
+
+	for y in rows_to_check.keys():
+		var should_erase = true
+		for x in range(width):
+			should_erase = should_erase && _board_state[y][x] != null
+		if should_erase:
+			for x in range(width):
+				var block = _board_state[y][x]
+				block.free()
+			_board_state.remove(y)
+			_lower_blocks(y, 1)
+			_prepend_board_row()
+
 	emit_signal("active_dropped")
+
+
+func _lower_blocks(row_index: int, num_down: int) -> void:
+	for y in range(row_index):
+		for x in range(width):
+			if _board_state[y][x] != null:
+				_board_state[y][x].position.y += num_down * block_size
