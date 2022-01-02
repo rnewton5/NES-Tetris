@@ -76,6 +76,10 @@ func get_all_block_coords() -> Array:
 	return _rotation_movements[_rotation_index]
 
 
+func get_all_blocks() -> Array:
+	return _blocks
+
+
 func get_clockwise_coords() -> Array:
 	return get_rotation_coords(_rotation_index + 1)
 

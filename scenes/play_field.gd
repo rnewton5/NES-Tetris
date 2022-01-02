@@ -15,8 +15,6 @@ var _hard_drop_delta_acc := 0.0
 
 onready var _hard_drop_delta := 1.0 / hard_drop_rate
 
-enum { OCCUPIED, FREE }
-
 
 func _ready() -> void:
 	_reset_board_state()
@@ -64,12 +62,18 @@ func _reset_board_state():
 		var row := []
 		_board_state.append(row)
 		for _j in range(width):
-			row.append(FREE)
+			row.append(null)
 
 
 func _reposition_active() -> void:
-	_active_tetromino.position.x = _active_tetromino_x * block_size
-	_active_tetromino.position.y = _active_tetromino_y * block_size
+	var x := _active_tetromino_x
+	var y := _active_tetromino_y
+	var position = _translate_coords_to_position(x, y)
+	_active_tetromino.position = position
+
+
+func _translate_coords_to_position(x: int, y: int) -> Vector2:
+	return Vector2(x * block_size, y * block_size)
 
 
 func _move_x(delta: int) -> void:
@@ -127,18 +131,24 @@ func _active_is_colliding(x: int, y: int, block_coords) -> bool:
 			return true
 		if block_pos_y >= height:
 			return true
-		if block_pos_y > 0 && _board_state[block_pos_y][block_pos_x] == OCCUPIED:
+		if block_pos_y > 0 && _board_state[block_pos_y][block_pos_x] != null:
 			return true
 	return false
 
 
 func _place_active() -> void:
 	var block_coords := _active_tetromino.get_all_block_coords()
+	var blocks := _active_tetromino.get_all_blocks()
 	for i in block_coords.size():
 		var block_coord: Vector2 = block_coords[i]
+		var block: Block = blocks[i]
 		var x = _active_tetromino_x + block_coord.x
 		var y = _active_tetromino_y + block_coord.y
-		_board_state[y][x] = OCCUPIED
-	_active_tetromino = null
+		_board_state[y][x] = block
+		_active_tetromino.remove_child(block)
+		block.position = _translate_coords_to_position(x, y)
+		add_child(block)
+
+	_active_tetromino.free()
 	$PlaceSoundEffect.play()
 	emit_signal("active_dropped")
