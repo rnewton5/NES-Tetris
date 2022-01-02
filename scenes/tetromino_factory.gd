@@ -12,6 +12,7 @@ const _packed_scenes := [
 
 
 static func get_random() -> Tetromino:
+	randomize()
 	var index = rand_range(0, _packed_scenes.size())
 	var scene: PackedScene = _packed_scenes[index]
 	return scene.instance() as Tetromino

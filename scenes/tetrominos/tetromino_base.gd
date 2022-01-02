@@ -1,14 +1,26 @@
 extends Position2D
 class_name Tetromino
 
-var _block_width := 0
-var _block_height := 0
+var _block_width := 0.0
+var _block_height := 0.0
 var _rotation_movements := []
 var _rotation_index := 0 setget set_rotation_index
+var _center_vector := Vector2(0.0, 0.0)
+var _is_centered := false
 var _sprite_column := 0
 var _sprite_row := 0
+var _scale := 1.0
+var _type := "default"
 
 onready var _blocks := get_children()
+
+
+func _ready() -> void:
+	update_blocks()
+
+
+func get_type() -> String:
+	return _type
 
 
 func update_blocks() -> void:
@@ -28,20 +40,36 @@ func update_block_positions() -> void:
 	for i in _blocks.size():
 		var block = _blocks[i]
 		var block_coords: Vector2 = _get_block_coords(i)
-		var x = block_coords.x
-		var y = block_coords.y
-		block.position = Vector2(x * _block_width, y * _block_height)
+		var x = block_coords.x * _block_width
+		var y = block_coords.y * _block_height
+		if _is_centered:
+			x += _center_vector.x * _block_width
+			y += _center_vector.y * _block_height
+		block.position = Vector2(x, y)
+		block.apply_scale(Vector2(_scale, _scale))
 
 
 func update_block_dimensions() -> void:
 	var block_dimensions := get_block_dimensions()
-	_block_width = block_dimensions.x as int
-	_block_height = block_dimensions.y as int
+	_block_width = _scale * block_dimensions.x
+	_block_height = _scale * block_dimensions.y
 
 
 func get_block_dimensions() -> Vector2:
 	var block: Block = _blocks[0]
 	return block.region_rect.size
+
+
+func set_block_scale(scale: float) -> void:
+	_scale = scale
+	if _blocks != null:
+		update_block_positions()
+
+
+func set_centered(is_centered: bool) -> void:
+	_is_centered = is_centered
+	if _blocks != null:
+		update_block_positions()
 
 
 func get_all_block_coords() -> Array:
