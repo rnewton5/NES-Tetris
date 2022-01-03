@@ -18,10 +18,6 @@ func _ready() -> void:
 	_drop_next_tetromino()
 
 
-func tick() -> void:
-	$PlayField.tick()
-
-
 func _drop_next_tetromino() -> void:
 	if _next_tetromino == null:
 		_next_tetromino = _get_random_tetromino()

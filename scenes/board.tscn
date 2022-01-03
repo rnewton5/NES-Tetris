@@ -24,6 +24,9 @@ stream = ExtResource( 4 )
 [node name="RotateSoundEffect" type="AudioStreamPlayer" parent="PlayField"]
 stream = ExtResource( 6 )
 
+[node name="Timer" type="Timer" parent="PlayField"]
+autostart = true
+
 [node name="NextDisplay" type="Position2D" parent="."]
 position = Vector2( 208.235, 120.469 )
 script = ExtResource( 7 )
@@ -32,8 +35,5 @@ script = ExtResource( 7 )
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
 [connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]
-[connection signal="timeout" from="Timer" to="." method="tick"]
+[connection signal="timeout" from="PlayField/Timer" to="PlayField" method="_on_Timer_timeout"]

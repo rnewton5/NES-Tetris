@@ -178,3 +178,7 @@ func _lower_blocks(row_index: int, num_down: int) -> void:
 		for x in range(width):
 			if _board_state[y][x] != null:
 				_board_state[y][x].position.y += num_down * block_size
+
+
+func _on_Timer_timeout() -> void:
+	tick()
