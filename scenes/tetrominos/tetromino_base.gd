@@ -10,7 +10,7 @@ var _is_centered := false
 var _sprite_column := 0
 var _sprite_row := 0
 var _scale := 1.0
-var _type := "default"
+var _type := ""
 
 onready var _blocks := get_children()
 
@@ -106,32 +106,6 @@ func get_rotation_coords(index: int) -> Array:
 	return _rotation_movements[index]
 
 
-func clear_by_y_position(first_to_clear: int, last_to_clear: int) -> void:
-	if last_to_clear < first_to_clear:
-		return
-	for i in _blocks.size():
-		var block: Block = _blocks[i]
-		var block_coords: Vector2 = _get_block_coords(i)
-		if block.y < first_to_clear:
-			_lower_block(block, i, last_to_clear - first_to_clear)
-		elif block.y <= last_to_clear:
-			_clear_block(block, i)
-
-
 func _get_block_coords(index: int) -> Vector2:
 	var currentRotation = get_all_block_coords()
 	return currentRotation[index]
-
-
-func _clear_block(block: Block, index: int) -> void:
-	block.queue_free()
-	for i in _rotation_movements.size():
-		var rotation_movement: Array = _rotation_movements[i]
-		rotation_movement.remove(index)
-
-
-func _lower_block(block: Block, index: int, num_lower: int) -> void:
-	for i in _rotation_movements.size():
-		var rotation_movement: Array = _rotation_movements[i]
-		var block_position: Vector2 = rotation_movement[index]
-		block_position.y -= num_lower
