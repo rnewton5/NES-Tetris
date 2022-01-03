@@ -143,6 +143,7 @@ func _active_is_colliding(x: int, y: int, block_coords) -> bool:
 func _place_active() -> void:
 	var block_coords := _active_tetromino.get_all_block_coords()
 	var blocks := _active_tetromino.get_all_blocks()
+	var type := _active_tetromino.get_type()
 	var rows_to_check := {}
 	for i in block_coords.size():
 		var block_coord: Vector2 = block_coords[i]
@@ -170,7 +171,7 @@ func _place_active() -> void:
 			_lower_blocks(y, 1)
 			_prepend_board_row()
 
-	emit_signal("active_dropped")
+	emit_signal("active_dropped", type)
 
 
 func _lower_blocks(row_index: int, num_down: int) -> void:

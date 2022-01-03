@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/board.gd" type="Script" id=1]
 [ext_resource path="res://images/board_a.png" type="Texture" id=2]
@@ -7,6 +7,15 @@
 [ext_resource path="res://sounds/tetromino_place.wav" type="AudioStream" id=5]
 [ext_resource path="res://sounds/tetromino_rotate.wav" type="AudioStream" id=6]
 [ext_resource path="res://scenes/next_display.gd" type="Script" id=7]
+[ext_resource path="res://scenes/tetrominos/tetromino_i.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/StatLabel.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/tetrominos/tetromino_l.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/tetrominos/tetromino_o.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/tetrominos/tetromino_s.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/tetrominos/tetromino_j.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/tetrominos/tetromino_t.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/tetrominos/tetromino_z.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/statistics.gd" type="Script" id=16]
 
 [node name="Board" type="Node2D"]
 script = ExtResource( 1 )
@@ -28,12 +37,90 @@ stream = ExtResource( 6 )
 autostart = true
 
 [node name="NextDisplay" type="Position2D" parent="."]
-position = Vector2( 208.235, 120.469 )
+position = Vector2( 207.5, 120 )
 script = ExtResource( 7 )
 
 [node name="Foreground" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 centered = false
+
+[node name="Statistics" type="Node2D" parent="."]
+script = ExtResource( 16 )
+
+[node name="PositionTop" type="Position2D" parent="Statistics"]
+position = Vector2( 48, 73 )
+
+[node name="PositionLeft" type="Position2D" parent="Statistics"]
+position = Vector2( 14, 137 )
+
+[node name="PositionRight" type="Position2D" parent="Statistics"]
+position = Vector2( 82, 137 )
+
+[node name="PositionDown" type="Position2D" parent="Statistics"]
+position = Vector2( 48, 201 )
+
+[node name="Tetromino_I" parent="Statistics" instance=ExtResource( 8 )]
+position = Vector2( 31.3923, 83.0182 )
+
+[node name="Tetromino_J" parent="Statistics" instance=ExtResource( 13 )]
+position = Vector2( 32.6676, 100.589 )
+
+[node name="Tetromino_L" parent="Statistics" instance=ExtResource( 10 )]
+position = Vector2( 32.6874, 121.137 )
+
+[node name="Tetromino_O" parent="Statistics" instance=ExtResource( 11 )]
+position = Vector2( 33.1167, 137.489 )
+
+[node name="Tetromino_S" parent="Statistics" instance=ExtResource( 12 )]
+position = Vector2( 30.8962, 155.136 )
+
+[node name="Tetromino_T" parent="Statistics" instance=ExtResource( 14 )]
+position = Vector2( 30.7014, 172.862 )
+
+[node name="Tetromino_Z" parent="Statistics" instance=ExtResource( 15 )]
+position = Vector2( 32.0362, 191.216 )
+
+[node name="StatLabel_I" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 50.0
+margin_top = 77.0
+margin_right = 74.0
+margin_bottom = 91.0
+
+[node name="StatLabel_J" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 50.0
+margin_top = 93.773
+margin_right = 90.0
+margin_bottom = 107.773
+
+[node name="StatLabel_L" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 50.0
+margin_top = 112.794
+margin_right = 90.0
+margin_bottom = 126.794
+
+[node name="StatLabel_O" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 50.0
+margin_top = 131.482
+margin_right = 90.0
+margin_bottom = 145.482
+
+[node name="StatLabel_S" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 50.0
+margin_top = 149.502
+margin_right = 90.0
+margin_bottom = 163.502
+
+[node name="StatLabel_T" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 50.0
+margin_top = 167.189
+margin_right = 90.0
+margin_bottom = 181.189
+
+[node name="StatLabel_Z" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 50.0
+margin_top = 185.543
+margin_right = 90.0
+margin_bottom = 199.543
 
 [connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]
 [connection signal="timeout" from="PlayField/Timer" to="PlayField" method="_on_Timer_timeout"]
