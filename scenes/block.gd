@@ -16,6 +16,12 @@ func set_current_sprite(sprite_coords: Vector2) -> void:
 	_set_sprite_sheet_region(sprite_coords)
 
 
+func set_clear_sprite() -> void:
+	var x := 3 * individual_sprite_width
+	var y := region_rect.position.y
+	region_rect = Rect2(x, y, individual_sprite_width, individual_sprite_height)
+
+
 func _set_sprite_sheet_region(sprite_coords: Vector2) -> void:
 	var x := sprite_coords.x * individual_sprite_width
 	var y := sprite_coords.y * individual_sprite_height

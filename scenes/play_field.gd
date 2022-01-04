@@ -2,6 +2,8 @@ extends Node2D
 
 signal active_dropped
 
+var Block := preload("res://scenes/block.tscn")
+
 export var block_size := 8
 export var width := 10
 export var height := 20
@@ -101,6 +103,8 @@ func _move_y(delta: int) -> void:
 	if !_active_is_colliding(x, y, block_coords):
 		_active_tetromino_y += delta
 		_reposition_active()
+	elif _active_tetromino_y == 0:
+		_process_game_over()
 	else:
 		_place_active()
 
@@ -181,6 +185,19 @@ func _lower_blocks(row_index: int, num_down: int) -> void:
 		for x in range(width):
 			if _board_state[y][x] != null:
 				_board_state[y][x].position.y += num_down * block_size
+
+
+func _process_game_over() -> void:
+	$Timer.stop()
+	for y in range(height):
+		for x in range(width):
+			if _board_state[y][x] != null:
+				_board_state[y][x].free()
+				_board_state[y][x] = null
+			var block = Block.instance()
+			block.position = _translate_coords_to_position(x, y)
+			block.set_clear_sprite()
+			add_child(block)
 
 
 func _on_Timer_timeout() -> void:
