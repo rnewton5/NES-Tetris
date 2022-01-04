@@ -81,46 +81,75 @@ position = Vector2( 30.7014, 172.862 )
 position = Vector2( 32.0362, 191.216 )
 
 [node name="StatLabel_I" parent="Statistics" instance=ExtResource( 9 )]
+modulate = Color( 1, 0, 0, 1 )
 margin_left = 50.0
 margin_top = 77.0
-margin_right = 74.0
+margin_right = 89.0
 margin_bottom = 91.0
 
 [node name="StatLabel_J" parent="Statistics" instance=ExtResource( 9 )]
+modulate = Color( 1, 0, 0, 1 )
 margin_left = 50.0
-margin_top = 93.773
-margin_right = 90.0
-margin_bottom = 107.773
+margin_top = 94.0
+margin_right = 92.0
+margin_bottom = 108.0
 
 [node name="StatLabel_L" parent="Statistics" instance=ExtResource( 9 )]
+modulate = Color( 1, 0, 0, 1 )
 margin_left = 50.0
 margin_top = 112.794
 margin_right = 90.0
 margin_bottom = 126.794
 
 [node name="StatLabel_O" parent="Statistics" instance=ExtResource( 9 )]
+modulate = Color( 1, 0, 0, 1 )
 margin_left = 50.0
 margin_top = 131.482
 margin_right = 90.0
 margin_bottom = 145.482
 
 [node name="StatLabel_S" parent="Statistics" instance=ExtResource( 9 )]
+modulate = Color( 1, 0, 0, 1 )
 margin_left = 50.0
 margin_top = 149.502
 margin_right = 90.0
 margin_bottom = 163.502
 
 [node name="StatLabel_T" parent="Statistics" instance=ExtResource( 9 )]
+modulate = Color( 1, 0, 0, 1 )
 margin_left = 50.0
 margin_top = 167.189
 margin_right = 90.0
 margin_bottom = 181.189
 
 [node name="StatLabel_Z" parent="Statistics" instance=ExtResource( 9 )]
+modulate = Color( 1, 0, 0, 1 )
 margin_left = 50.0
 margin_top = 185.543
 margin_right = 90.0
 margin_bottom = 199.543
+
+[node name="Score" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 190.0
+margin_top = 58.0
+margin_right = 240.0
+margin_bottom = 72.0
+text = "000000"
+align = 2
+
+[node name="TopScore" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 191.0
+margin_top = 33.0
+margin_right = 241.0
+margin_bottom = 47.0
+text = "010000"
+align = 2
+
+[node name="Lines" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 153.17
+margin_top = 14.4523
+margin_right = 203.17
+margin_bottom = 28.4523
 
 [connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]
 [connection signal="timeout" from="PlayField/Timer" to="PlayField" method="_on_Timer_timeout"]
