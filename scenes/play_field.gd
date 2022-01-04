@@ -159,11 +159,13 @@ func _place_active() -> void:
 	_active_tetromino.free()
 	$PlaceSoundEffect.play()
 
+	var lines_cleared = 0
 	for y in rows_to_check.keys():
 		var should_erase = true
 		for x in range(width):
 			should_erase = should_erase && _board_state[y][x] != null
 		if should_erase:
+			lines_cleared += 1
 			for x in range(width):
 				var block = _board_state[y][x]
 				block.free()
@@ -171,7 +173,7 @@ func _place_active() -> void:
 			_lower_blocks(y, 1)
 			_prepend_board_row()
 
-	emit_signal("active_dropped", type)
+	emit_signal("active_dropped", type, lines_cleared)
 
 
 func _lower_blocks(row_index: int, num_down: int) -> void:

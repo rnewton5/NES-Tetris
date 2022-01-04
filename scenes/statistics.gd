@@ -1,10 +1,12 @@
 tool
 extends Node2D
 
+var _level = 0
+var _lines = 0
 var _top_score = 010000  # TODO: pull this from file
 var _score = 0
-var _lines = 0
-var _tetromino_stats = {
+var _line_clear_base_scores := {1: 40, 2: 100, 3: 300, 4: 1200}
+var _tetromino_stats := {
 	"I": 0,
 	"J": 0,
 	"L": 0,
@@ -42,6 +44,11 @@ func increment_count_for_type(tetromino_type: String) -> void:
 	label.text = _zero_pad_left(current_value, 3)
 
 
+func increment_level() -> void:
+	_level += 1
+	$Level.text = _zero_pad_left(_level, 2)
+
+
 func add_to_line_total(value: int) -> void:
 	_lines += value
 	$Lines.text = _zero_pad_left(_lines, 3)
@@ -54,7 +61,14 @@ func subtract_from_line_total(value: int) -> void:
 
 func add_to_score(value: int) -> void:
 	_score += value
-	$Score.text = _zero_pad_left(_lines, 6)
+	$Score.text = _zero_pad_left(_score, 6)
+
+
+func update_score_for_lines_cleared(lines_cleared: int) -> void:
+	if lines_cleared == 0:
+		return
+	var base_score = _line_clear_base_scores[lines_cleared]
+	add_to_score(base_score * (_level + 1))
 
 
 func _update_child_tetromino_transforms(tetromino: Tetromino) -> void:

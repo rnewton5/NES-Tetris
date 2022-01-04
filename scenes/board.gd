@@ -31,6 +31,8 @@ func _get_random_tetromino() -> Tetromino:
 	return TetrominoFactory.get_random()
 
 
-func _on_PlayField_active_dropped(type: String) -> void:
+func _on_PlayField_active_dropped(type: String, lines_cleared: int) -> void:
 	$Statistics.increment_count_for_type(type)
+	$Statistics.add_to_line_total(lines_cleared)
+	$Statistics.update_score_for_lines_cleared(lines_cleared)
 	_drop_next_tetromino()

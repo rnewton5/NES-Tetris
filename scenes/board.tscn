@@ -151,5 +151,12 @@ margin_top = 14.4523
 margin_right = 203.17
 margin_bottom = 28.4523
 
+[node name="Level" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 208.0
+margin_top = 159.0
+margin_right = 228.0
+margin_bottom = 173.0
+text = "00"
+
 [connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]
 [connection signal="timeout" from="PlayField/Timer" to="PlayField" method="_on_Timer_timeout"]
