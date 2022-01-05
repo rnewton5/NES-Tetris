@@ -44,8 +44,8 @@ func increment_count_for_type(tetromino_type: String) -> void:
 	label.text = _zero_pad_left(current_value, 3)
 
 
-func increment_level() -> void:
-	_level += 1
+func set_level(level: int) -> void:
+	_level = level
 	$Level.text = _zero_pad_left(_level, 2)
 
 

@@ -9,7 +9,6 @@ var _rotation_index := 0 setget set_rotation_index
 var _center_vector := Vector2(0.0, 0.0)
 var _is_centered := false
 var _sprite_column := 0
-var _sprite_row := 0
 var _scale := 1.0
 var _type := ""
 
@@ -32,8 +31,13 @@ func update_blocks() -> void:
 func update_block_sprites() -> void:
 	for i in _blocks.size():
 		var block = _blocks[i]
-		var sprite_coords := Vector2(_sprite_column, _sprite_row)
-		block.set_current_sprite(sprite_coords)
+		block.set_sprite_column(_sprite_column)
+
+
+func update_block_sprite_for_level(level: int) -> void:
+	for i in _blocks.size():
+		var block = _blocks[i]
+		block.set_sprite_row(level)
 
 
 func update_block_positions() -> void:

@@ -160,3 +160,4 @@ text = "00"
 
 [connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]
 [connection signal="timeout" from="PlayField/Timer" to="PlayField" method="_on_Timer_timeout"]
+[connection signal="level_up" from="Statistics" to="." method="_on_Statistics_level_up"]

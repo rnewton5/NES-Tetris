@@ -14,12 +14,14 @@ var _active_tetromino: Tetromino = null
 var _active_tetromino_x := 0
 var _active_tetromino_y := 0
 var _hard_drop_delta_acc := 0.0
+var _level := 0
 
 onready var _hard_drop_delta := 1.0 / hard_drop_rate
 
 
 func _ready() -> void:
 	_reset_board_state()
+	var _discard = Events.connect("level_up", self, "_on_Level_up")
 
 
 func _process(delta: float) -> void:
@@ -195,10 +197,14 @@ func _process_game_over() -> void:
 				_board_state[y][x].free()
 				_board_state[y][x] = null
 			var block = Block.instance()
-			block.position = _translate_coords_to_position(x, y)
-			block.set_clear_sprite()
 			add_child(block)
+			block.position = _translate_coords_to_position(x, y)
+			block.set_clear_sprite(_level)
 
 
 func _on_Timer_timeout() -> void:
 	tick()
+
+
+func _on_Level_up(level: int) -> void:
+	_level = level
