@@ -8,7 +8,7 @@ var _board_b_texture: Texture = preload("res://images/board_b.png")
 export(String, "A TYPE", "B TYPE") var board_type := "A TYPE"
 
 var _next_tetromino: Tetromino
-var _lines_per_level = 1
+var _lines_per_level = 10
 var _lines_cleared = 0
 var _level = 0
 
