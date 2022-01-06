@@ -259,11 +259,12 @@ func _on_DropTimer_timeout() -> void:
 func _on_RowClearTimer_timeout() -> void:
 	for row in _rows_being_cleared:
 		_board_state[row][_clear_index].free()
+		_board_state[row][_clear_index] = null
 
 	_clear_index += 1
 	if _clear_index == width:
 		_clear_index = 0
-		_lower_blocks(_rows_being_cleared[-1], 1)
+		_lower_blocks(_rows_being_cleared[-1], _rows_being_cleared.size())
 		var type = _active_tetromino.get_type()
 		_active_tetromino.free()
 		emit_signal("active_dropped", type, _rows_being_cleared.size())
