@@ -195,7 +195,7 @@ func _lower_blocks(row_index: int, num_down: int) -> void:
 
 
 func _process_game_over() -> void:
-	$Timer.stop()
+	$DropTimer.stop()
 	for y in range(height):
 		for x in range(width):
 			if _board_state[y][x] != null:
