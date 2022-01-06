@@ -4,6 +4,8 @@ class_name Block
 
 export var individual_sprite_width := 8
 export var individual_sprite_height := 8
+export var num_columns := 4
+export var num_rows := 10
 export var default_sprite_coords := Vector2.ZERO
 
 var _sprite_coords := Vector2.ZERO
@@ -35,7 +37,7 @@ func update_current_sprite() -> void:
 
 
 func set_clear_sprite(level: int) -> void:
-	var x := 3 * individual_sprite_width
+	var x := (num_columns - 1) * individual_sprite_width
 	var y := level * individual_sprite_height
 	region_rect = Rect2(x, y, individual_sprite_width, individual_sprite_height)
 
@@ -47,4 +49,4 @@ func _set_sprite_sheet_region(sprite_coords: Vector2) -> void:
 
 
 func _on_Level_up(level: int) -> void:
-	set_sprite_row(level)
+	set_sprite_row(level % num_rows)
