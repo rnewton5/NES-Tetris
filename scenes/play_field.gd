@@ -20,12 +20,13 @@ onready var _hard_drop_delta := 1.0 / hard_drop_rate
 
 
 func _ready() -> void:
-	_reset_board_state()
 	var _discard = Events.connect("level_up", self, "_on_Level_up")
+	$DropTimer.wait_time = _get_drop_time_for_level(_level)
+	_reset_board_state()
 
 
-func _process(delta: float) -> void:
-	_process_input(delta)
+func _process(_delta: float) -> void:
+	_process_input()
 
 
 func drop_tetromino(tetromino: Tetromino) -> void:
@@ -40,24 +41,28 @@ func tick() -> void:
 	_move_y(1)
 
 
-func _process_input(delta: float) -> void:
+func _process_input() -> void:
 	if Input.is_action_just_pressed("ui_left"):
 		_move_x(-1)
 	if Input.is_action_just_pressed("ui_right"):
 		_move_x(1)
-	if Input.is_action_pressed("ui_down"):
-		_process_hard_drop(delta)
+	if Input.is_action_just_pressed("ui_down"):
+		_set_is_hard_dropping(true)
+	if Input.is_action_just_released("ui_down"):
+		_set_is_hard_dropping(false)
 	if Input.is_action_just_pressed("ui_rotate_clockwise"):
 		_rotate_active_clockwise()
 	if Input.is_action_just_pressed("ui_rotate_counter_clockwise"):
 		_rotate_active_counter_clockwise()
 
 
-func _process_hard_drop(delta: float) -> void:
-	_hard_drop_delta_acc += delta
-	if _hard_drop_delta_acc >= _hard_drop_delta:
-		_move_y(1)
-		_hard_drop_delta_acc = 0.0
+func _set_is_hard_dropping(value: bool) -> void:
+	$DropTimer.stop()
+	if value:
+		$DropTimer.wait_time = _get_drop_time_for_level(28)
+	else:
+		$DropTimer.wait_time = _get_drop_time_for_level(_level)
+	$DropTimer.start()
 
 
 func _reset_board_state():
@@ -202,9 +207,46 @@ func _process_game_over() -> void:
 			block.set_clear_sprite(_level)
 
 
-func _on_Timer_timeout() -> void:
-	tick()
+func _get_drop_time_for_level(level: int) -> float:
+	if level == 0:
+		return 43 / 60.0
+	if level == 1:
+		return 38 / 60.0
+	if level == 2:
+		return 38 / 60.0
+	if level == 3:
+		return 33 / 60.0
+	if level == 4:
+		return 28 / 60.0
+	if level == 5:
+		return 23 / 60.0
+	if level == 6:
+		return 18 / 60.0
+	if level == 7:
+		return 13 / 60.0
+	if level == 8:
+		return 8 / 60.0
+	if level == 9:
+		return 6 / 60.0
+	if level <= 12:
+		return 5 / 60.0
+	if level <= 15:
+		return 4 / 60.0
+	if level <= 18:
+		return 3 / 60.0
+	if level <= 28:
+		return 2 / 60.0
+	return 1 / 60.0
 
 
 func _on_Level_up(level: int) -> void:
 	_level = level
+	$DropTimer.wait_time = _get_drop_time_for_level(level)
+
+
+func _on_DropTimer_timeout() -> void:
+	tick()
+
+
+func _on_RowClearTimer_timeout() -> void:
+	pass  # Replace with function body.
