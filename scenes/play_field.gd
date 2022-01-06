@@ -266,6 +266,6 @@ func _on_RowClearTimer_timeout() -> void:
 		_lower_blocks(_rows_being_cleared[-1], 1)
 		var type = _active_tetromino.get_type()
 		_active_tetromino.free()
-		emit_signal("active_dropped", type, 0)
+		emit_signal("active_dropped", type, _rows_being_cleared.size())
 		$RowClearTimer.stop()
 		$DropTimer.start()
