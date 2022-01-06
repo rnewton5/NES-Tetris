@@ -37,7 +37,7 @@ stream = ExtResource( 6 )
 autostart = true
 
 [node name="RowClearTimer" type="Timer" parent="PlayField"]
-wait_time = 0.1
+wait_time = 0.05
 
 [node name="NextDisplay" type="Position2D" parent="."]
 position = Vector2( 207.5, 120 )
@@ -142,9 +142,9 @@ text = "000000"
 align = 2
 
 [node name="TopScore" parent="Statistics" instance=ExtResource( 9 )]
-margin_left = 191.0
+margin_left = 190.0
 margin_top = 33.0
-margin_right = 241.0
+margin_right = 240.0
 margin_bottom = 47.0
 text = "010000"
 align = 2
@@ -157,9 +157,9 @@ margin_bottom = 23.0
 
 [node name="Level" parent="Statistics" instance=ExtResource( 9 )]
 margin_left = 208.0
-margin_top = 159.0
+margin_top = 160.0
 margin_right = 228.0
-margin_bottom = 173.0
+margin_bottom = 174.0
 text = "00"
 
 [connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]

@@ -14,6 +14,8 @@ var _active_tetromino: Tetromino = null
 var _active_tetromino_x := 0
 var _active_tetromino_y := 0
 var _hard_drop_delta_acc := 0.0
+var _rows_being_cleared := []
+var _clear_index := 0
 var _level := 0
 
 onready var _hard_drop_delta := 1.0 / hard_drop_rate
@@ -152,9 +154,9 @@ func _active_is_colliding(x: int, y: int, block_coords) -> bool:
 
 
 func _place_active() -> void:
+	$PlaceSoundEffect.play()
 	var block_coords := _active_tetromino.get_all_block_coords()
 	var blocks := _active_tetromino.get_all_blocks()
-	var type := _active_tetromino.get_type()
 	var rows_to_check := {}
 	for i in block_coords.size():
 		var block_coord: Vector2 = block_coords[i]
@@ -167,24 +169,26 @@ func _place_active() -> void:
 		add_child(block)
 		if !rows_to_check.has(y):
 			rows_to_check[y] = true
-	_active_tetromino.free()
-	$PlaceSoundEffect.play()
 
-	var lines_cleared = 0
-	for y in rows_to_check.keys():
-		var should_erase = true
+	_rows_being_cleared = _get_rows_to_clear()
+	if _rows_being_cleared.size() == 0:
+		var type = _active_tetromino.get_type()
+		_active_tetromino.free()
+		emit_signal("active_dropped", type, 0)
+	else:
+		$DropTimer.stop()
+		$RowClearTimer.start()
+
+
+func _get_rows_to_clear():
+	var rows_to_clear := []
+	for y in range(height):
+		var row_full = true
 		for x in range(width):
-			should_erase = should_erase && _board_state[y][x] != null
-		if should_erase:
-			lines_cleared += 1
-			for x in range(width):
-				var block = _board_state[y][x]
-				block.free()
-			_board_state.remove(y)
-			_lower_blocks(y, 1)
-			_prepend_board_row()
-
-	emit_signal("active_dropped", type, lines_cleared)
+			row_full = row_full && (_board_state[y][x] != null)
+		if row_full:
+			rows_to_clear.append(y)
+	return rows_to_clear
 
 
 func _lower_blocks(row_index: int, num_down: int) -> void:
@@ -192,6 +196,10 @@ func _lower_blocks(row_index: int, num_down: int) -> void:
 		for x in range(width):
 			if _board_state[y][x] != null:
 				_board_state[y][x].position.y += num_down * block_size
+
+	for i in range(num_down):
+		_board_state.remove(row_index - i)
+		_prepend_board_row()
 
 
 func _process_game_over() -> void:
@@ -249,4 +257,15 @@ func _on_DropTimer_timeout() -> void:
 
 
 func _on_RowClearTimer_timeout() -> void:
-	pass  # Replace with function body.
+	for row in _rows_being_cleared:
+		_board_state[row][_clear_index].free()
+
+	_clear_index += 1
+	if _clear_index == width:
+		_clear_index = 0
+		_lower_blocks(_rows_being_cleared[-1], 1)
+		var type = _active_tetromino.get_type()
+		_active_tetromino.free()
+		emit_signal("active_dropped", type, 0)
+		$RowClearTimer.stop()
+		$DropTimer.start()
