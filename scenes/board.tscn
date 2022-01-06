@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/board.gd" type="Script" id=1]
 [ext_resource path="res://images/board_a.png" type="Texture" id=2]
@@ -16,8 +16,6 @@
 [ext_resource path="res://scenes/tetrominos/tetromino_t.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/tetrominos/tetromino_z.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/statistics.gd" type="Script" id=16]
-
-[sub_resource type="Theme" id=1]
 
 [node name="Board" type="Node2D"]
 script = ExtResource( 1 )
@@ -91,7 +89,7 @@ margin_left = 50.0
 margin_top = 77.0
 margin_right = 89.0
 margin_bottom = 91.0
-theme = SubResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
 
 [node name="StatLabel_J" parent="Statistics" instance=ExtResource( 9 )]
 modulate = Color( 1, 0, 0, 1 )
@@ -152,10 +150,10 @@ text = "010000"
 align = 2
 
 [node name="Lines" parent="Statistics" instance=ExtResource( 9 )]
-margin_left = 153.17
-margin_top = 14.4523
-margin_right = 203.17
-margin_bottom = 28.4523
+margin_left = 153.0
+margin_top = 15.0
+margin_right = 177.0
+margin_bottom = 23.0
 
 [node name="Level" parent="Statistics" instance=ExtResource( 9 )]
 margin_left = 208.0
