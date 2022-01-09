@@ -2,7 +2,6 @@ tool
 extends Node2D
 
 var _level = 0
-var _lines = 0
 var _top_score = 010000  # TODO: pull this from file
 var _score = 0
 var _line_clear_base_scores := {1: 40, 2: 100, 3: 300, 4: 1200}
@@ -49,14 +48,8 @@ func set_level(level: int) -> void:
 	$Level.text = _zero_pad_left(_level, 2)
 
 
-func add_to_line_total(value: int) -> void:
-	_lines += value
-	$Lines.text = _zero_pad_left(_lines, 3)
-
-
-func subtract_from_line_total(value: int) -> void:
-	_lines -= value
-	$Lines.text = _zero_pad_left(_lines, 3)
+func set_lines(value: int) -> void:
+	$Lines.text = _zero_pad_left(value, 3)
 
 
 func add_to_score(value: int) -> void:

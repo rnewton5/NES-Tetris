@@ -17,6 +17,7 @@ var _hard_drop_delta_acc := 0.0
 var _rows_being_cleared := []
 var _clear_index := 0
 var _level := 0
+var _moving := false
 
 onready var _hard_drop_delta := 1.0 / hard_drop_rate
 
@@ -32,6 +33,7 @@ func _process(_delta: float) -> void:
 
 
 func drop_tetromino(tetromino: Tetromino) -> void:
+	_moving = true
 	_active_tetromino = tetromino
 	_active_tetromino_x = (width / 2.0) as int
 	_active_tetromino_y = 0
@@ -47,13 +49,14 @@ func add_garbage(num_rows: int) -> void:
 
 
 func tick() -> void:
-	_move_y(1)
+	if _moving:
+		_move_y(1)
 
 
 func _add_blocks_randomly_to_row(row_index: int) -> void:
 	var any_blocks_placed := false
 	for col_index in width:
-		if randi() % 2 == 0:
+		if randi() % 4 != 0:
 			any_blocks_placed = true
 			_place_block(row_index, col_index)
 	if !any_blocks_placed:
@@ -181,6 +184,7 @@ func _active_is_colliding(x: int, y: int, block_coords) -> bool:
 
 func _place_active() -> void:
 	$PlaceSoundEffect.play()
+	_moving = false
 	var block_coords := _active_tetromino.get_all_block_coords()
 	var blocks := _active_tetromino.get_all_blocks()
 	var rows_to_check := {}

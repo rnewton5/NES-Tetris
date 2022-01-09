@@ -12,6 +12,7 @@ export var height := 0
 var _next_tetromino: Tetromino
 var _lines_per_level = 3
 var _lines_cleared = 0
+var _lines_for_b_type = 2
 var _num_rows_for_height := {0: 0, 1: 3, 2: 5, 3: 7, 4: 10, 5: 12}
 
 
@@ -21,11 +22,13 @@ func _ready() -> void:
 		$Statistics.hide_height()
 	if board_type == "B TYPE":
 		$Foreground.set_texture(_board_b_texture)
+		$Statistics.set_level(level)
 		$Statistics.set_height(height)
+		$Statistics.set_lines(_lines_for_b_type)
 	$Statistics.set_level(level)
 	$PlayField.add_garbage(_num_rows_for_height[height])
 	_drop_next_tetromino()
-	Events.emit_signal("level_up",level)
+	Events.emit_signal("level_up", level)
 
 
 func _drop_next_tetromino() -> void:
@@ -43,13 +46,22 @@ func _get_random_tetromino() -> Tetromino:
 
 
 func _on_PlayField_active_dropped(type: String, lines_cleared: int) -> void:
-	_drop_next_tetromino()
-	$Statistics.increment_count_for_type(type)
-	$Statistics.add_to_line_total(lines_cleared)
-	$Statistics.update_score_for_lines_cleared(lines_cleared)
 	_lines_cleared += lines_cleared
-	var tempLevel: int = _lines_cleared / _lines_per_level
-	if tempLevel > level:
-		level = tempLevel
-		$Statistics.set_level(level)
-		Events.emit_signal("level_up", level)
+	$Statistics.increment_count_for_type(type)
+	$Statistics.update_score_for_lines_cleared(lines_cleared)
+
+	if board_type == "A TYPE":
+		$Statistics.set_lines(_lines_cleared)
+		var tempLevel: int = _lines_cleared / _lines_per_level
+		if tempLevel > level:
+			level = tempLevel
+			$Statistics.set_level(level)
+			Events.emit_signal("level_up", level)
+		_drop_next_tetromino()
+	else:
+		var lines_remaining = max(0, _lines_for_b_type - _lines_cleared)
+		$Statistics.set_lines(lines_remaining)
+		if lines_remaining == 0:
+			print("Gameover!!!")
+		else:
+			_drop_next_tetromino()
