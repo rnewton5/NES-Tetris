@@ -2,7 +2,7 @@ extends Node2D
 
 signal active_dropped
 
-var Block := preload("res://scenes/block.tscn")
+var BlockScene := preload("res://scenes/block.tscn")
 
 export var block_size := 8
 export var width := 10
@@ -39,8 +39,34 @@ func drop_tetromino(tetromino: Tetromino) -> void:
 	_reposition_active()
 
 
+func add_garbage(num_rows: int) -> void:
+	randomize()
+	for i in num_rows:
+		var index = height - 1 - i
+		_add_blocks_randomly_to_row(index)
+
+
 func tick() -> void:
 	_move_y(1)
+
+
+func _add_blocks_randomly_to_row(row_index: int) -> void:
+	var any_blocks_placed := false
+	for col_index in width:
+		if randi() % 2 == 0:
+			any_blocks_placed = true
+			_place_block(row_index, col_index)
+	if !any_blocks_placed:
+		_place_block(row_index, randi() % width)
+
+
+func _place_block(row_index: int, col_index: int) -> void:
+	var block_instance: Block = BlockScene.instance()
+	block_instance.set_sprite_column(randi() % 3)
+	var position = _translate_coords_to_position(col_index, row_index)
+	block_instance.position = position
+	add_child(block_instance)
+	_board_state[row_index][col_index] = block_instance
 
 
 func _process_input() -> void:
@@ -209,7 +235,7 @@ func _process_game_over() -> void:
 			if _board_state[y][x] != null:
 				_board_state[y][x].free()
 				_board_state[y][x] = null
-			var block = Block.instance()
+			var block = BlockScene.instance()
 			add_child(block)
 			block.position = _translate_coords_to_position(x, y)
 			block.set_clear_sprite(_level)

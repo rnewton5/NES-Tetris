@@ -71,6 +71,14 @@ func update_score_for_lines_cleared(lines_cleared: int) -> void:
 	add_to_score(base_score * (_level + 1))
 
 
+func hide_height() -> void:
+	$Height.text = ""
+
+
+func set_height(value: int) -> void:
+	$Height.text = str(value)
+
+
 func _update_child_tetromino_transforms(tetromino: Tetromino) -> void:
 	tetromino.set_centered(true)
 	tetromino.set_block_scale(.8)

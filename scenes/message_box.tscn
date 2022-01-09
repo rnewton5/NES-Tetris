@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/stat_label.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/message_box.gd" type="Script" id=2]
+
+[node name="MessageBox" type="Node2D"]
+script = ExtResource( 2 )
+message = null
+border_style = null
+
+[node name="BorderCorner" type="Sprite" parent="."]
+
+[node name="StyledLabel" parent="." instance=ExtResource( 1 )]
+text = "Placeholder"

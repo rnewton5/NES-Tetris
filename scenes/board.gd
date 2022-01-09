@@ -6,29 +6,36 @@ var _board_a_texture: Texture = preload("res://images/board_a.png")
 var _board_b_texture: Texture = preload("res://images/board_b.png")
 
 export(String, "A TYPE", "B TYPE") var board_type := "A TYPE"
+export var level := 0
+export var height := 0
 
 var _next_tetromino: Tetromino
 var _lines_per_level = 3
 var _lines_cleared = 0
-var _level = 0
+var _num_rows_for_height := {0: 0, 1: 3, 2: 5, 3: 7, 4: 10, 5: 12}
 
 
 func _ready() -> void:
 	if board_type == "A TYPE":
 		$Foreground.set_texture(_board_a_texture)
+		$Statistics.hide_height()
 	if board_type == "B TYPE":
 		$Foreground.set_texture(_board_b_texture)
+		$Statistics.set_height(height)
+	$Statistics.set_level(level)
+	$PlayField.add_garbage(_num_rows_for_height[height])
 	_drop_next_tetromino()
+	Events.emit_signal("level_up",level)
 
 
 func _drop_next_tetromino() -> void:
 	if _next_tetromino == null:
 		_next_tetromino = _get_random_tetromino()
 	$PlayField.drop_tetromino(_next_tetromino)
-	_next_tetromino.update_block_sprite_for_level(_level)
+	_next_tetromino.update_block_sprite_for_level(level)
 
 	_next_tetromino = _get_random_tetromino()
-	$NextDisplay.display_tetromino(_next_tetromino.get_type(), _level)
+	$NextDisplay.display_tetromino(_next_tetromino.get_type(), level)
 
 
 func _get_random_tetromino() -> Tetromino:
@@ -42,7 +49,7 @@ func _on_PlayField_active_dropped(type: String, lines_cleared: int) -> void:
 	$Statistics.update_score_for_lines_cleared(lines_cleared)
 	_lines_cleared += lines_cleared
 	var tempLevel: int = _lines_cleared / _lines_per_level
-	if tempLevel > _level:
-		_level = tempLevel
-		$Statistics.set_level(_level)
-		Events.emit_signal("level_up", _level)
+	if tempLevel > level:
+		level = tempLevel
+		$Statistics.set_level(level)
+		Events.emit_signal("level_up", level)

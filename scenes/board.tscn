@@ -1,14 +1,14 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/board.gd" type="Script" id=1]
-[ext_resource path="res://images/board_a.png" type="Texture" id=2]
+[ext_resource path="res://images/board_b.png" type="Texture" id=2]
 [ext_resource path="res://scenes/play_field.gd" type="Script" id=3]
 [ext_resource path="res://sounds/tetromino_move.wav" type="AudioStream" id=4]
 [ext_resource path="res://sounds/tetromino_place.wav" type="AudioStream" id=5]
 [ext_resource path="res://sounds/tetromino_rotate.wav" type="AudioStream" id=6]
 [ext_resource path="res://scenes/next_display.gd" type="Script" id=7]
 [ext_resource path="res://scenes/tetrominos/tetromino_i.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/StatLabel.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/stat_label.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/tetrominos/tetromino_l.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/tetrominos/tetromino_o.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/tetrominos/tetromino_s.tscn" type="PackedScene" id=12]
@@ -160,7 +160,16 @@ margin_left = 208.0
 margin_top = 160.0
 margin_right = 228.0
 margin_bottom = 174.0
+rect_pivot_offset = Vector2( 10, 3.502 )
 text = "00"
+
+[node name="Height" parent="Statistics" instance=ExtResource( 9 )]
+margin_left = 217.121
+margin_top = 191.82
+margin_right = 237.121
+margin_bottom = 205.82
+rect_pivot_offset = Vector2( 10, 3.502 )
+text = "0"
 
 [connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]
 [connection signal="timeout" from="PlayField/DropTimer" to="PlayField" method="_on_DropTimer_timeout"]
