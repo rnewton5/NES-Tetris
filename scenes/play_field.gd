@@ -56,7 +56,7 @@ func tick() -> void:
 func _add_blocks_randomly_to_row(row_index: int) -> void:
 	var any_blocks_placed := false
 	for col_index in width:
-		if randi() % 4 != 0:
+		if randi() % 2 == 0:
 			any_blocks_placed = true
 			_place_block(row_index, col_index)
 	if !any_blocks_placed:

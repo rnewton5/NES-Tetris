@@ -10,9 +10,9 @@ export var level := 0
 export var height := 0
 
 var _next_tetromino: Tetromino
-var _lines_per_level = 3
+var _lines_per_level = 10
 var _lines_cleared = 0
-var _lines_for_b_type = 2
+var _lines_for_b_type = 25
 var _num_rows_for_height := {0: 0, 1: 3, 2: 5, 3: 7, 4: 10, 5: 12}
 
 
