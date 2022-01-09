@@ -1,7 +1,11 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/stat_label.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/message_box.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxLine" id=1]
+content_margin_bottom = 6.0
+color = Color( 1, 0, 0, 1 )
+thickness = 5
 
 [node name="MessageBox" type="Node2D"]
 script = ExtResource( 2 )
@@ -10,5 +14,11 @@ border_style = null
 
 [node name="BorderCorner" type="Sprite" parent="."]
 
-[node name="StyledLabel" parent="." instance=ExtResource( 1 )]
-text = "Placeholder"
+[node name="Message" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_styles/normal = SubResource( 1 )
+text = "Hello"
+__meta__ = {
+"_edit_use_anchors_": false
+}

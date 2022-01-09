@@ -25,6 +25,7 @@ func _ready() -> void:
 		$Statistics.set_level(level)
 		$Statistics.set_height(height)
 		$Statistics.set_lines(_lines_for_b_type)
+	$SuccessMessage.hide()
 	$Statistics.set_level(level)
 	$PlayField.add_garbage(_num_rows_for_height[height])
 	_drop_next_tetromino()
@@ -62,6 +63,6 @@ func _on_PlayField_active_dropped(type: String, lines_cleared: int) -> void:
 		var lines_remaining = max(0, _lines_for_b_type - _lines_cleared)
 		$Statistics.set_lines(lines_remaining)
 		if lines_remaining == 0:
-			print("Gameover!!!")
+			$SuccessMessage.show()
 		else:
 			_drop_next_tetromino()

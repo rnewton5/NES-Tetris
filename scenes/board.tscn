@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/board.gd" type="Script" id=1]
-[ext_resource path="res://images/board_b.png" type="Texture" id=2]
+[ext_resource path="res://images/board_a.png" type="Texture" id=2]
 [ext_resource path="res://scenes/play_field.gd" type="Script" id=3]
 [ext_resource path="res://sounds/tetromino_move.wav" type="AudioStream" id=4]
 [ext_resource path="res://sounds/tetromino_place.wav" type="AudioStream" id=5]
@@ -170,6 +170,13 @@ margin_right = 237.121
 margin_bottom = 205.82
 rect_pivot_offset = Vector2( 10, 3.502 )
 text = "0"
+
+[node name="SuccessMessage" parent="." instance=ExtResource( 9 )]
+margin_left = 104.298
+margin_top = 91.2167
+margin_right = 168.298
+margin_bottom = 101.217
+text = "Success!"
 
 [connection signal="active_dropped" from="PlayField" to="." method="_on_PlayField_active_dropped"]
 [connection signal="timeout" from="PlayField/DropTimer" to="PlayField" method="_on_DropTimer_timeout"]
