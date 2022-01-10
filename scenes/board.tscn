@@ -169,9 +169,10 @@ margin_top = 191.82
 margin_right = 237.121
 margin_bottom = 205.82
 rect_pivot_offset = Vector2( 10, 3.502 )
-text = "0"
+text = ""
 
 [node name="SuccessMessage" parent="." instance=ExtResource( 9 )]
+visible = false
 margin_left = 104.298
 margin_top = 91.2167
 margin_right = 168.298

@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/game.gd" type="Script" id=1]
+[ext_resource path="res://images/title.png" type="Texture" id=2]
+[ext_resource path="res://scenes/stat_label.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/title_screen.gd" type="Script" id=4]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
+
+[node name="TitleScreen" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+script = ExtResource( 4 )
+
+[node name="PushStartLabel" parent="TitleScreen" instance=ExtResource( 3 )]
+margin_left = 52.6794
+margin_top = 141.068
+margin_right = 140.679
+margin_bottom = 151.068
+text = "Push Start!"
+
+[node name="StartFlashTimer" type="Timer" parent="TitleScreen"]
+autostart = true
+
+[connection signal="timeout" from="TitleScreen/StartFlashTimer" to="TitleScreen" method="_on_StartFlashTimer_timeout"]
