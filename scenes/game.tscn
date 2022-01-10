@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/game.gd" type="Script" id=1]
 [ext_resource path="res://images/title.png" type="Texture" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://sounds/success.ogg" type="AudioStream" id=12]
 [ext_resource path="res://sounds/victory.ogg" type="AudioStream" id=13]
 [ext_resource path="res://scenes/music_player.gd" type="Script" id=14]
+[ext_resource path="res://scenes/options_main_select.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/options_main.gd" type="Script" id=16]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -39,8 +41,41 @@ visible = false
 [node name="OptionsMain" type="Sprite" parent="Options"]
 texture = ExtResource( 5 )
 centered = false
+script = ExtResource( 16 )
+
+[node name="ATypeOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
+position = Vector2( 61.1647, 53.033 )
+
+[node name="BTypeOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
+position = Vector2( 157.685, 53.033 )
+
+[node name="MusicOneOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
+position = Vector2( 102.177, 132.229 )
+
+[node name="SelectArrow2" parent="Options/OptionsMain/MusicOneOptionSelect" index="1"]
+offset = Vector2( 74, 3 )
+
+[node name="MusicTwoOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
+position = Vector2( 102.884, 149.199 )
+
+[node name="SelectArrow2" parent="Options/OptionsMain/MusicTwoOptionSelect" index="1"]
+offset = Vector2( 74, 3 )
+
+[node name="MusicThreeOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
+position = Vector2( 102.53, 164.756 )
+
+[node name="SelectArrow2" parent="Options/OptionsMain/MusicThreeOptionSelect" index="1"]
+offset = Vector2( 74, 3 )
+
+[node name="MusicOffOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
+position = Vector2( 115.965, 181.019 )
+
+[node name="SelectArrow2" parent="Options/OptionsMain/MusicOffOptionSelect" index="1"]
+position = Vector2( -36, 0 )
+offset = Vector2( 74, 3 )
 
 [node name="MusicPlayer" type="Node2D" parent="."]
+position = Vector2( -60.4576, 27.5771 )
 script = ExtResource( 14 )
 
 [node name="MusicOne" type="AudioStreamPlayer" parent="MusicPlayer"]
@@ -68,3 +103,8 @@ stream = ExtResource( 12 )
 stream = ExtResource( 13 )
 
 [connection signal="timeout" from="TitleScreen/StartFlashTimer" to="TitleScreen" method="_on_StartFlashTimer_timeout"]
+
+[editable path="Options/OptionsMain/MusicOneOptionSelect"]
+[editable path="Options/OptionsMain/MusicTwoOptionSelect"]
+[editable path="Options/OptionsMain/MusicThreeOptionSelect"]
+[editable path="Options/OptionsMain/MusicOffOptionSelect"]
