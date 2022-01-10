@@ -1,10 +1,24 @@
 extends Node2D
 
+enum CURRENT_SCREEN { TITLE, OPTIONS, BOARD }
+
 var BoardScene: PackedScene = preload("res://scenes/board.tscn")
+var current_screen = CURRENT_SCREEN.TITLE
 
 
 func _ready() -> void:
 	pass
+
+
+func _process(_delta: float) -> void:
+	if current_screen == CURRENT_SCREEN.TITLE:
+		_process_input_title_screen()
+
+
+func _process_input_title_screen() -> void:
+	if Input.is_action_just_pressed("ui_accept"):
+		$Options.show()
+		current_screen = CURRENT_SCREEN.OPTIONS
 
 
 func _open_game_board(level: int, height: int) -> void:

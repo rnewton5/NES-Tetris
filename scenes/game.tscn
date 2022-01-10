@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/game.gd" type="Script" id=1]
 [ext_resource path="res://images/title.png" type="Texture" id=2]
 [ext_resource path="res://scenes/stat_label.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/title_screen.gd" type="Script" id=4]
+[ext_resource path="res://images/options_main.png" type="Texture" id=5]
+[ext_resource path="res://sounds/music_1.ogg" type="AudioStream" id=6]
+[ext_resource path="res://sounds/music_2.ogg" type="AudioStream" id=7]
+[ext_resource path="res://sounds/music_3.ogg" type="AudioStream" id=8]
+[ext_resource path="res://sounds/music_1_fast.ogg" type="AudioStream" id=9]
+[ext_resource path="res://sounds/music_2_fast.ogg" type="AudioStream" id=10]
+[ext_resource path="res://sounds/music_3_fast.ogg" type="AudioStream" id=11]
+[ext_resource path="res://sounds/success.ogg" type="AudioStream" id=12]
+[ext_resource path="res://sounds/victory.ogg" type="AudioStream" id=13]
+[ext_resource path="res://scenes/music_player.gd" type="Script" id=14]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,5 +32,39 @@ text = "Push Start!"
 
 [node name="StartFlashTimer" type="Timer" parent="TitleScreen"]
 autostart = true
+
+[node name="Options" type="Node2D" parent="."]
+visible = false
+
+[node name="OptionsMain" type="Sprite" parent="Options"]
+texture = ExtResource( 5 )
+centered = false
+
+[node name="MusicPlayer" type="Node2D" parent="."]
+script = ExtResource( 14 )
+
+[node name="MusicOne" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 6 )
+
+[node name="MusicTwo" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 7 )
+
+[node name="MusicThree" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 8 )
+
+[node name="MusicOneFast" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 9 )
+
+[node name="MusicTwoFast" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 10 )
+
+[node name="MusicThreeFast" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 11 )
+
+[node name="Success" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 12 )
+
+[node name="Victory" type="AudioStreamPlayer" parent="MusicPlayer"]
+stream = ExtResource( 13 )
 
 [connection signal="timeout" from="TitleScreen/StartFlashTimer" to="TitleScreen" method="_on_StartFlashTimer_timeout"]
