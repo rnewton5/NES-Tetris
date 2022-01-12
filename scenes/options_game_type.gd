@@ -1,6 +1,6 @@
 extends Sprite
 
-signal options_accepted
+signal options_accepted(type, music)
 signal options_backed_out
 
 var _selected_music_index := 0

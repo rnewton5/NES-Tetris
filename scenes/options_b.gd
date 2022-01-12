@@ -1,6 +1,6 @@
 extends Sprite
 
-signal options_accepted
+signal options_accepted(level, height)
 signal options_backed_out
 
 

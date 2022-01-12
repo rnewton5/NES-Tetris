@@ -8,3 +8,7 @@ onready var active_child := $OptionsGameType
 
 func _ready() -> void:
 	pass
+
+
+func _process(delta: float) -> void:
+	active_child.process_input()

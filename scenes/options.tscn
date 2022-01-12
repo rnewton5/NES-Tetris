@@ -16,7 +16,6 @@
 script = ExtResource( 11 )
 
 [node name="OptionsGameType" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 1 )
 centered = false
 script = ExtResource( 2 )
@@ -40,6 +39,7 @@ position = Vector2( 102.53, 164.756 )
 position = Vector2( 115.965, 181.019 )
 
 [node name="OptionsTypeA" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 3 )
 centered = false
 script = ExtResource( 8 )
