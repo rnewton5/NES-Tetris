@@ -17,10 +17,10 @@ func _process(_delta: float) -> void:
 
 func _process_input_title_screen() -> void:
 	if Input.is_action_just_pressed("ui_accept"):
-		$Options.hide()
 		$TitleScreen.hide()
-		var boardInstance = BoardScene.instance()
-		add_child(boardInstance)
+		$Options.show()
+		# var boardInstance = BoardScene.instance()
+		# add_child(boardInstance)
 		# $Options.show()
 		# current_screen = CURRENT_SCREEN.OPTIONS
 

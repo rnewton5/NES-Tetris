@@ -1,10 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/game.gd" type="Script" id=1]
-[ext_resource path="res://images/title.png" type="Texture" id=2]
-[ext_resource path="res://scenes/stat_label.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/title_screen.gd" type="Script" id=4]
-[ext_resource path="res://images/options_main.png" type="Texture" id=5]
+[ext_resource path="res://scenes/title_screen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/options.tscn" type="PackedScene" id=3]
 [ext_resource path="res://sounds/music_1.ogg" type="AudioStream" id=6]
 [ext_resource path="res://sounds/music_2.ogg" type="AudioStream" id=7]
 [ext_resource path="res://sounds/music_3.ogg" type="AudioStream" id=8]
@@ -14,152 +12,13 @@
 [ext_resource path="res://sounds/success.ogg" type="AudioStream" id=12]
 [ext_resource path="res://sounds/victory.ogg" type="AudioStream" id=13]
 [ext_resource path="res://scenes/music_player.gd" type="Script" id=14]
-[ext_resource path="res://scenes/options_main_select.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/options_main.gd" type="Script" id=16]
-[ext_resource path="res://images/options_a.png" type="Texture" id=17]
-[ext_resource path="res://images/options_b.png" type="Texture" id=18]
-[ext_resource path="res://images/level_select_foreground.png" type="Texture" id=19]
-[ext_resource path="res://scenes/BoxSelect.gd" type="Script" id=20]
-[ext_resource path="res://images/height_select_foreground.png" type="Texture" id=21]
-[ext_resource path="res://scenes/options_a.gd" type="Script" id=22]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="TitleScreen" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 2 )
-centered = false
-script = ExtResource( 4 )
+[node name="TitleScreen" parent="." instance=ExtResource( 2 )]
 
-[node name="PushStartLabel" parent="TitleScreen" instance=ExtResource( 3 )]
-margin_left = 52.6794
-margin_top = 141.068
-margin_right = 140.679
-margin_bottom = 151.068
-text = "Push Start!"
-
-[node name="StartFlashTimer" type="Timer" parent="TitleScreen"]
-autostart = true
-
-[node name="Options" type="Node2D" parent="."]
-
-[node name="OptionsMain" type="Sprite" parent="Options"]
-visible = false
-texture = ExtResource( 5 )
-centered = false
-script = ExtResource( 16 )
-
-[node name="ATypeOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
-position = Vector2( 61.1647, 53.033 )
-
-[node name="BTypeOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
-position = Vector2( 157.685, 53.033 )
-
-[node name="MusicOneOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
-position = Vector2( 102.177, 132.229 )
-
-[node name="SelectArrow2" parent="Options/OptionsMain/MusicOneOptionSelect" index="1"]
-offset = Vector2( 74, 3 )
-
-[node name="MusicTwoOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
-position = Vector2( 102.884, 149.199 )
-
-[node name="SelectArrow2" parent="Options/OptionsMain/MusicTwoOptionSelect" index="1"]
-offset = Vector2( 74, 3 )
-
-[node name="MusicThreeOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
-position = Vector2( 102.53, 164.756 )
-
-[node name="SelectArrow2" parent="Options/OptionsMain/MusicThreeOptionSelect" index="1"]
-offset = Vector2( 74, 3 )
-
-[node name="MusicOffOptionSelect" parent="Options/OptionsMain" instance=ExtResource( 15 )]
-position = Vector2( 115.965, 181.019 )
-
-[node name="SelectArrow2" parent="Options/OptionsMain/MusicOffOptionSelect" index="1"]
-position = Vector2( -36, 0 )
-offset = Vector2( 74, 3 )
-
-[node name="OptionsA" type="Sprite" parent="Options"]
-texture = ExtResource( 17 )
-centered = false
-script = ExtResource( 22 )
-
-[node name="LevelSelect" type="Node2D" parent="Options/OptionsA"]
-position = Vector2( 50, 75 )
-z_index = 12
-script = ExtResource( 20 )
-
-[node name="Background" type="ColorRect" parent="Options/OptionsA/LevelSelect"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 17.0
-margin_bottom = 17.0
-color = Color( 1, 0.584314, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LevelSelectForeground" type="Sprite" parent="Options/OptionsA/LevelSelect"]
-texture = ExtResource( 19 )
-centered = false
-
-[node name="FlashTimer" type="Timer" parent="Options/OptionsA/LevelSelect"]
-wait_time = 0.1
-autostart = true
-
-[node name="OptionsB" type="Sprite" parent="Options"]
-visible = false
-texture = ExtResource( 18 )
-centered = false
-
-[node name="HeightSelect" type="Node2D" parent="Options/OptionsB"]
-position = Vector2( 159.791, 75 )
-z_index = 12
-script = ExtResource( 20 )
-num_cols = 3
-
-[node name="Background" type="ColorRect" parent="Options/OptionsB/HeightSelect"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 17.0
-margin_bottom = 17.0
-color = Color( 1, 0.584314, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LevelSelectForeground" type="Sprite" parent="Options/OptionsB/HeightSelect"]
-texture = ExtResource( 21 )
-centered = false
-
-[node name="FlashTimer" type="Timer" parent="Options/OptionsB/HeightSelect"]
-wait_time = 0.1
-autostart = true
-
-[node name="LevelSelect" type="Node2D" parent="Options/OptionsB"]
-position = Vector2( 50, 75 )
-z_index = 12
-script = ExtResource( 20 )
-
-[node name="Background" type="ColorRect" parent="Options/OptionsB/LevelSelect"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 17.0
-margin_bottom = 17.0
-color = Color( 1, 0.584314, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LevelSelectForeground" type="Sprite" parent="Options/OptionsB/LevelSelect"]
-texture = ExtResource( 19 )
-centered = false
-
-[node name="FlashTimer" type="Timer" parent="Options/OptionsB/LevelSelect"]
-wait_time = 0.1
-autostart = true
+[node name="Options" parent="." instance=ExtResource( 3 )]
 
 [node name="MusicPlayer" type="Node2D" parent="."]
 position = Vector2( -60.4576, 27.5771 )
@@ -188,13 +47,3 @@ stream = ExtResource( 12 )
 
 [node name="Victory" type="AudioStreamPlayer" parent="MusicPlayer"]
 stream = ExtResource( 13 )
-
-[connection signal="timeout" from="TitleScreen/StartFlashTimer" to="TitleScreen" method="_on_StartFlashTimer_timeout"]
-[connection signal="timeout" from="Options/OptionsA/LevelSelect/FlashTimer" to="Options/OptionsA/LevelSelect" method="_on_FlashTimer_timeout"]
-[connection signal="timeout" from="Options/OptionsB/HeightSelect/FlashTimer" to="Options/OptionsB/HeightSelect" method="_on_FlashTimer_timeout"]
-[connection signal="timeout" from="Options/OptionsB/LevelSelect/FlashTimer" to="Options/OptionsB/LevelSelect" method="_on_FlashTimer_timeout"]
-
-[editable path="Options/OptionsMain/MusicOneOptionSelect"]
-[editable path="Options/OptionsMain/MusicTwoOptionSelect"]
-[editable path="Options/OptionsMain/MusicThreeOptionSelect"]
-[editable path="Options/OptionsMain/MusicOffOptionSelect"]

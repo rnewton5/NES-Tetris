@@ -1,5 +1,8 @@
 extends Sprite
 
+signal options_accepted
+signal options_backed_out
+
 var _selected_music_index := 0
 var _selected_game_type_index := 0
 
@@ -13,7 +16,7 @@ func _ready() -> void:
 	_update_selections()
 
 
-func _process(_delta: float) -> void:
+func process_input() -> void:
 	if Input.is_action_just_pressed("ui_down"):
 		var max_index := _music_option_selects.size() - 1
 		_selected_music_index += 1
@@ -28,6 +31,12 @@ func _process(_delta: float) -> void:
 		var max_index := _game_type_option_selects.size() - 1
 		_selected_game_type_index += 1
 		_selected_game_type_index = min(_selected_game_type_index, max_index) as int
+	if Input.is_action_just_pressed("ui_rotate_counter_clockwise"):
+		emit_signal("options_backed_out")
+	if Input.is_action_just_pressed("ui_rotate_clockwise"):
+		emit_signal("options_accepted")
+	if Input.is_action_just_pressed("ui_accept"):
+		emit_signal("options_accepted")
 	_update_selections()
 
 

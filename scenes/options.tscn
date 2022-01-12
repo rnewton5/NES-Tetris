@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://images/options_main.png" type="Texture" id=1]
+[ext_resource path="res://scenes/options_game_type.gd" type="Script" id=2]
+[ext_resource path="res://images/options_a.png" type="Texture" id=3]
+[ext_resource path="res://images/options_b.png" type="Texture" id=4]
+[ext_resource path="res://images/level_select_foreground.png" type="Texture" id=5]
+[ext_resource path="res://scenes/BoxSelect.gd" type="Script" id=6]
+[ext_resource path="res://scenes/options_b.gd" type="Script" id=7]
+[ext_resource path="res://scenes/options_a.gd" type="Script" id=8]
+[ext_resource path="res://images/height_select_foreground.png" type="Texture" id=9]
+[ext_resource path="res://scenes/options_main_select.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/options.gd" type="Script" id=11]
+
+[node name="Options" type="Node2D"]
+script = ExtResource( 11 )
+
+[node name="OptionsGameType" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+centered = false
+script = ExtResource( 2 )
+
+[node name="ATypeOptionSelect" parent="OptionsGameType" instance=ExtResource( 10 )]
+position = Vector2( 61.1647, 53.033 )
+
+[node name="BTypeOptionSelect" parent="OptionsGameType" instance=ExtResource( 10 )]
+position = Vector2( 157.685, 53.033 )
+
+[node name="MusicOneOptionSelect" parent="OptionsGameType" instance=ExtResource( 10 )]
+position = Vector2( 102.177, 132.229 )
+
+[node name="MusicTwoOptionSelect" parent="OptionsGameType" instance=ExtResource( 10 )]
+position = Vector2( 102.884, 149.199 )
+
+[node name="MusicThreeOptionSelect" parent="OptionsGameType" instance=ExtResource( 10 )]
+position = Vector2( 102.53, 164.756 )
+
+[node name="MusicOffOptionSelect" parent="OptionsGameType" instance=ExtResource( 10 )]
+position = Vector2( 115.965, 181.019 )
+
+[node name="OptionsTypeA" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+centered = false
+script = ExtResource( 8 )
+
+[node name="LevelSelect" type="Node2D" parent="OptionsTypeA"]
+position = Vector2( 50, 75 )
+z_index = 12
+script = ExtResource( 6 )
+
+[node name="Background" type="ColorRect" parent="OptionsTypeA/LevelSelect"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 17.0
+margin_bottom = 17.0
+color = Color( 1, 0.584314, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelSelectForeground" type="Sprite" parent="OptionsTypeA/LevelSelect"]
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FlashTimer" type="Timer" parent="OptionsTypeA/LevelSelect"]
+wait_time = 0.1
+
+[node name="OptionsTypeB" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 4 )
+centered = false
+script = ExtResource( 7 )
+
+[node name="HeightSelect" type="Node2D" parent="OptionsTypeB"]
+position = Vector2( 159.791, 75 )
+z_index = 12
+script = ExtResource( 6 )
+num_cols = 3
+
+[node name="Background" type="ColorRect" parent="OptionsTypeB/HeightSelect"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 17.0
+margin_bottom = 17.0
+color = Color( 1, 0.584314, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelSelectForeground" type="Sprite" parent="OptionsTypeB/HeightSelect"]
+texture = ExtResource( 9 )
+centered = false
+
+[node name="FlashTimer" type="Timer" parent="OptionsTypeB/HeightSelect"]
+wait_time = 0.1
+
+[node name="LevelSelect" type="Node2D" parent="OptionsTypeB"]
+position = Vector2( 50, 75 )
+z_index = 12
+script = ExtResource( 6 )
+
+[node name="Background" type="ColorRect" parent="OptionsTypeB/LevelSelect"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 17.0
+margin_bottom = 17.0
+color = Color( 1, 0.584314, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelSelectForeground" type="Sprite" parent="OptionsTypeB/LevelSelect"]
+texture = ExtResource( 5 )
+centered = false
+
+[node name="FlashTimer" type="Timer" parent="OptionsTypeB/LevelSelect"]
+wait_time = 0.1
+
+[connection signal="timeout" from="OptionsTypeA/LevelSelect/FlashTimer" to="OptionsTypeA/LevelSelect" method="_on_FlashTimer_timeout"]
+[connection signal="timeout" from="OptionsTypeB/HeightSelect/FlashTimer" to="OptionsTypeB/HeightSelect" method="_on_FlashTimer_timeout"]
+[connection signal="timeout" from="OptionsTypeB/LevelSelect/FlashTimer" to="OptionsTypeB/LevelSelect" method="_on_FlashTimer_timeout"]
