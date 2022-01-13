@@ -1,33 +1,39 @@
 extends Node2D
 
-enum CURRENT_SCREEN { TITLE, OPTIONS, BOARD }
-
+var TitleScreenScene: PackedScene = preload("res://scenes/title_screen.tscn")
 var BoardScene: PackedScene = preload("res://scenes/board.tscn")
-var current_screen = CURRENT_SCREEN.TITLE
+var OptionsScene: PackedScene = preload("res://scenes/options.tscn")
+
+var _active_scene = null
 
 
 func _ready() -> void:
-	pass
+	_active_scene = $TitleScreen
 
 
 func _process(_delta: float) -> void:
-	if current_screen == CURRENT_SCREEN.TITLE:
-		_process_input_title_screen()
+	pass
 
 
-func _process_input_title_screen() -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		$TitleScreen.hide()
-		$Options.show()
-		# var boardInstance = BoardScene.instance()
-		# add_child(boardInstance)
-		# $Options.show()
-		# current_screen = CURRENT_SCREEN.OPTIONS
+func _on_TitleScreen_start_accepted() -> void:
+	remove_child(_active_scene)
+	_active_scene = OptionsScene.instance()
+	_active_scene.connect("options_accepted", self, "_on_Options_accepted")
+	_active_scene.connect("options_backed_out", self, "_on_Options_backed_out")
+	add_child(_active_scene)
 
 
-func _open_game_board(level: int, height: int) -> void:
-	var board_scene: Board = BoardScene.instance()
-	board_scene.board_type = "A TYPE"
-	board_scene.level = level
-	board_scene.height = height
-	add_child(board_scene)
+func _on_Options_accepted(type: String, music: int, level: int, height: int) -> void:
+	remove_child(_active_scene)
+	_active_scene = BoardScene.instance()
+	_active_scene.board_type = "A TYPE"
+	_active_scene.level = level
+	_active_scene.height = height
+	add_child(_active_scene)
+
+
+func _on_Options_backed_out() -> void:
+	remove_child(_active_scene)
+	_active_scene = TitleScreenScene.instance()
+	_active_scene.connect("start_accepted", self, "_on_TitleScreen_start_accepted")
+	add_child(_active_scene)

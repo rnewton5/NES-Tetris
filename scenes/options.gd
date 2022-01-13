@@ -3,7 +3,7 @@ extends Node2D
 signal options_accepted(type, music, level, height)
 signal options_backed_out
 
-var _game_type := "A"
+var _game_type := "A Type"
 var _music := 1
 var _level := 0
 var _height := 0
@@ -31,7 +31,7 @@ func _on_OptionsGameType_options_accepted(type: String, music: String) -> void:
 	_game_type = type
 	_music = int(music)
 	$OptionsGameType.hide()
-	_active_child = $OptionsTypeA if _game_type == "A" else $OptionsTypeB
+	_active_child = $OptionsTypeA if _game_type == "A Type" else $OptionsTypeB
 	_active_child.show()
 
 

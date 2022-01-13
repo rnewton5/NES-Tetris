@@ -25,14 +25,14 @@ margin_left = 62.0
 margin_top = 55.0
 margin_right = 120.0
 margin_bottom = 65.0
-data = "A"
+data = "A Type"
 
 [node name="BTypeOptionSelect" parent="OptionsGameType" instance=ExtResource( 11 )]
 margin_left = 158.0
 margin_top = 55.0
 margin_right = 217.0
 margin_bottom = 65.0
-data = "B"
+data = "B Type"
 
 [node name="MusicOneOptionSelect" parent="OptionsGameType" instance=ExtResource( 11 )]
 margin_left = 102.0
