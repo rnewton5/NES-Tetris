@@ -1,8 +1,12 @@
 extends Sprite
 
+signal game_type_changed(type)
+signal music_changed(music)
 signal options_accepted(type, music)
 signal options_backed_out
 
+var _prev_selected_music_index := -1
+var _prev_selected_game_type_index := -1
 var _selected_music_index := 0
 var _selected_game_type_index := 0
 
@@ -23,7 +27,7 @@ func process_input() -> void:
 		_selected_music_index = min(_selected_music_index, max_index) as int
 	if Input.is_action_just_pressed("ui_up"):
 		_selected_music_index -= 1
-		_selected_music_index = max(_selected_music_index - 1, 0) as int
+		_selected_music_index = max(_selected_music_index, 0) as int
 	if Input.is_action_just_pressed("ui_left"):
 		_selected_game_type_index -= 1
 		_selected_game_type_index = max(_selected_game_type_index, 0) as int
@@ -38,6 +42,7 @@ func process_input() -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		emit_signal("options_accepted")
 	_update_selections()
+	_emit_signals()
 
 
 func _update_selections() -> void:
@@ -45,3 +50,12 @@ func _update_selections() -> void:
 		child.hide()
 	_music_option_selects[_selected_music_index].show()
 	_game_type_option_selects[_selected_game_type_index].show()
+
+
+func _emit_signals() -> void:
+	if _prev_selected_game_type_index != _selected_game_type_index:
+		var data = _game_type_option_selects[_selected_game_type_index].data
+		emit_signal("game_type_changed", data)
+	if _prev_selected_music_index != _selected_music_index:
+		var data = _music_option_selects[_selected_music_index].data
+		emit_signal("music_changed", data)

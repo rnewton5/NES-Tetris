@@ -1,5 +1,7 @@
 extends Control
 
+export var data := ""
+
 
 func _ready() -> void:
 	pass
