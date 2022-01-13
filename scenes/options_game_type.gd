@@ -9,6 +9,8 @@ var _prev_selected_music_index := -1
 var _prev_selected_game_type_index := -1
 var _selected_music_index := 0
 var _selected_game_type_index := 0
+var _selected_type_data := ""
+var _selected_music_data := ""
 
 onready var _music_option_selects := [
 	$MusicOneOptionSelect, $MusicTwoOptionSelect, $MusicThreeOptionSelect, $MusicOffOptionSelect
@@ -37,12 +39,13 @@ func process_input() -> void:
 		_selected_game_type_index = min(_selected_game_type_index, max_index) as int
 	if Input.is_action_just_pressed("ui_rotate_counter_clockwise"):
 		emit_signal("options_backed_out")
-	if Input.is_action_just_pressed("ui_rotate_clockwise"):
-		emit_signal("options_accepted")
-	if Input.is_action_just_pressed("ui_accept"):
-		emit_signal("options_accepted")
+	if (
+		Input.is_action_just_pressed("ui_rotate_clockwise")
+		|| Input.is_action_just_pressed("ui_accept")
+	):
+		emit_signal("options_accepted", _selected_type_data, _selected_music_data)
 	_update_selections()
-	_emit_signals()
+	_emit_select_signals()
 
 
 func _update_selections() -> void:
@@ -52,10 +55,12 @@ func _update_selections() -> void:
 	_game_type_option_selects[_selected_game_type_index].show()
 
 
-func _emit_signals() -> void:
+func _emit_select_signals() -> void:
 	if _prev_selected_game_type_index != _selected_game_type_index:
-		var data = _game_type_option_selects[_selected_game_type_index].data
-		emit_signal("game_type_changed", data)
+		_selected_type_data = _game_type_option_selects[_selected_game_type_index].data
+		emit_signal("game_type_changed", _selected_type_data)
+		_prev_selected_game_type_index = _selected_game_type_index
 	if _prev_selected_music_index != _selected_music_index:
-		var data = _music_option_selects[_selected_music_index].data
-		emit_signal("music_changed", data)
+		_selected_music_data = _music_option_selects[_selected_music_index].data
+		emit_signal("music_changed", _selected_music_data)
+		_prev_selected_music_index = _selected_music_index

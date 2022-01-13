@@ -56,9 +56,9 @@ margin_bottom = 177.0
 data = "3"
 
 [node name="MusicOffOptionSelect" parent="OptionsGameType" instance=ExtResource( 11 )]
-margin_left = 116.0
+margin_left = 117.0
 margin_top = 183.0
-margin_right = 153.0
+margin_right = 152.0
 margin_bottom = 193.0
 data = "-1"
 
@@ -141,6 +141,14 @@ centered = false
 [node name="FlashTimer" type="Timer" parent="OptionsTypeB/LevelSelect"]
 wait_time = 0.1
 
+[connection signal="game_type_changed" from="OptionsGameType" to="." method="_on_OptionsGameType_game_type_changed"]
+[connection signal="music_changed" from="OptionsGameType" to="." method="_on_OptionsGameType_music_changed"]
+[connection signal="options_accepted" from="OptionsGameType" to="." method="_on_OptionsGameType_options_accepted"]
+[connection signal="options_backed_out" from="OptionsGameType" to="." method="_on_OptionsGameType_options_backed_out"]
+[connection signal="options_accepted" from="OptionsTypeA" to="." method="_on_OptionsTypeA_options_accepted"]
+[connection signal="options_backed_out" from="OptionsTypeA" to="." method="_on_OptionsTypeA_options_backed_out"]
 [connection signal="timeout" from="OptionsTypeA/LevelSelect/FlashTimer" to="OptionsTypeA/LevelSelect" method="_on_FlashTimer_timeout"]
+[connection signal="options_accepted" from="OptionsTypeB" to="." method="_on_OptionsTypeB_options_accepted"]
+[connection signal="options_backed_out" from="OptionsTypeB" to="." method="_on_OptionsTypeB_options_backed_out"]
 [connection signal="timeout" from="OptionsTypeB/HeightSelect/FlashTimer" to="OptionsTypeB/HeightSelect" method="_on_FlashTimer_timeout"]
 [connection signal="timeout" from="OptionsTypeB/LevelSelect/FlashTimer" to="OptionsTypeB/LevelSelect" method="_on_FlashTimer_timeout"]

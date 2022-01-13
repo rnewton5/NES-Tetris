@@ -8,13 +8,18 @@ func _ready() -> void:
 	_make_level_select_active()
 
 
-func process_input(_delta: float) -> void:
+func process_input() -> void:
+	$LevelSelect.process_input()
+	$HeightSelect.process_input()
 	if Input.is_action_just_pressed("ui_rotate_counter_clockwise"):
 		_process_back_input()
-	if Input.is_action_just_pressed("ui_rotate_clockwise"):
-		_process_forward_input()
-	if Input.is_action_just_pressed("ui_accept"):
-		emit_signal("options_accepted")
+	if (
+		Input.is_action_just_pressed("ui_rotate_clockwise")
+		|| Input.is_action_just_pressed("ui_accept")
+	):
+		var level = $LevelSelect.get_value()
+		var height = $HeightSelect.get_value()
+		emit_signal("options_accepted", level, height)
 
 
 func _process_back_input() -> void:

@@ -16,7 +16,7 @@ func _ready() -> void:
 	_max_value = (num_cols * num_rows) - 1
 
 
-func _process(_delta: float) -> void:
+func process_input() -> void:
 	if !active:
 		return
 
