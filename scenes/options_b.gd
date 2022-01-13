@@ -17,9 +17,7 @@ func process_input() -> void:
 		Input.is_action_just_pressed("ui_rotate_clockwise")
 		|| Input.is_action_just_pressed("ui_accept")
 	):
-		var level = $LevelSelect.get_value()
-		var height = $HeightSelect.get_value()
-		emit_signal("options_accepted", level, height)
+		_process_forward_input()
 
 
 func _process_back_input() -> void:
@@ -31,7 +29,9 @@ func _process_back_input() -> void:
 
 func _process_forward_input() -> void:
 	if $HeightSelect.active:
-		emit_signal("options_accepted")
+		var level = $LevelSelect.get_value()
+		var height = $HeightSelect.get_value()
+		emit_signal("options_accepted", level, height)
 	else:
 		_make_height_select_active()
 
